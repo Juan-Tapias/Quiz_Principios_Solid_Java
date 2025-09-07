@@ -1,29 +1,26 @@
-package com.campeonato.gestor;
+package CodigoInical;
+
 import java.util.ArrayList;
 import java.util.List;
 // --- Clases de Entidad (simuladas para el ejercicio) ---
 class Equipo {
     private String nombre;
     private List<Jugador> jugadores = new ArrayList<>();
+    
     public Equipo(String nombre) { this.nombre = nombre; }
+    
     public String getNombre() { return nombre; }
+    
     public void agregarJugador(Jugador j) { this.jugadores.add(j); }
+    
     public List<Jugador> getJugadores() { return this.jugadores; }
-}
-class Jugador {
-    private String nombre;
-    private String posicion;
-            // Posibles valores: "Portero", "Delantero","Defensa"
-    public Jugador(String nombre, String posicion) { this.nombre = nombre;
-    this.posicion = posicion; }
     
-    public String getNombre() { return nombre; }
-    
-    public String getPosicion() { return this.posicion; }
 }
 class Arbitro {
     private String nombre;
+    
     public Arbitro(String nombre) { this.nombre = nombre; }
+    
     public String getNombre() { return nombre; }
 }
 /**
@@ -36,18 +33,18 @@ public class GestorCampeonato {
 * Registra los participantes en el sistema.
 */
 public void registrarParticipantes() {
-// Registrar equipos
+    // Registrar equipos
     Equipo equipoA = new Equipo("Los Ganadores");
-    equipoA.agregarJugador(new Jugador("Juan Pérez", "Delantero"));
-    equipoA.agregarJugador(new Jugador("Pedro Pan", "Portero"));
+    equipoA.agregarJugador(new Delantero("Juan Pérez"));
+    equipoA.agregarJugador(new Portero("Pedro Pan"));
     
     equipos.add(equipoA);
     
     System.out.println("Equipo 'Los Ganadores' registrado.");
     Equipo equipoB = new Equipo("Los Retadores");
-    equipoB.agregarJugador(new Jugador("Alicia Smith", "Defensa"));
+    equipoB.agregarJugador(new Defensa("Alicia Smith"));
 
-    equipos.add(equipoB);
+    equipos.add(equipoB);   
     System.out.println("Equipo 'Los Retadores' registrado.");
     // Contratar árbitros
     arbitros.add(new Arbitro("Miguel Díaz"));
@@ -59,16 +56,9 @@ public void registrarParticipantes() {
 public void calcularBonificaciones() {
     System.out.println("\n--- Calculando Bonificaciones de Jugadores ---");
     for (Equipo equipo : equipos) {
-    for (Jugador jugador : equipo.getJugadores()) {
-        
-    if (jugador.getPosicion().equals("Delantero")) {
-        System.out.println("Calculando bonificación alta para Delantero: " + jugador.getNombre());
-    } else if (jugador.getPosicion().equals("Portero")) {
-        System.out.println("Calculando bonificación estándar para Portero: " + jugador.getNombre());
-    } else {
-        System.out.println("Calculando bonificación base para: " +
-        jugador.getNombre());
-    }}}
+        for (Jugador jugador : equipo.getJugadores()) {
+            jugador.calcularBonificacion();
+    }}
 }
 /**
 * Genera y muestra en consola diferentes tipos de reportes.
@@ -95,7 +85,6 @@ public void generarReportes(String formato) {
             contenidoHtml += " </ul>\n <h2>Árbitros</h2>\n <ul>\n";
         for (Arbitro arbitro : arbitros) {
             contenidoHtml += " <li>" + arbitro.getNombre() + "</li>\n";
-
             }
         contenidoHtml += " </ul>\n</body></html>";
         System.out.println(contenidoHtml);
