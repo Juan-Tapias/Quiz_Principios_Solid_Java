@@ -1,5 +1,6 @@
 
 package CodigoInical;
+
 class Defensa extends Jugador {
     
     public Defensa(String nombre) {

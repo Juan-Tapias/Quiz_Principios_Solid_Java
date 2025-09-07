@@ -1,5 +1,6 @@
 
-package com.mycompany.ejercicio3;
+package CodigoInical;
+
  class Delantero extends Jugador{
     
     public Delantero(String nombre) {

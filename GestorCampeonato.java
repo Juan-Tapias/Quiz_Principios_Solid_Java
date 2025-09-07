@@ -2,57 +2,20 @@ package CodigoInical;
 
 import java.util.ArrayList;
 import java.util.List;
-// --- Clases de Entidad (simuladas para el ejercicio) ---
-class Equipo {
-    private String nombre;
-    private List<Jugador> jugadores = new ArrayList<>();
-    
-    public Equipo(String nombre) { this.nombre = nombre; }
-    
-    public String getNombre() { return nombre; }
-    
-    public void agregarJugador(Jugador j) { this.jugadores.add(j); }
-    
-    public List<Jugador> getJugadores() { return this.jugadores; }
-    
-}
-class Arbitro {
-    private String nombre;
-    
-    public Arbitro(String nombre) { this.nombre = nombre; }
-    
-    public String getNombre() { return nombre; }
-}
-/**
-* Clase principal para la gestión de un campeonato de fútbol.
-*/
+
 public class GestorCampeonato {
     private List<Equipo> equipos = new ArrayList<>();
     private List<Arbitro> arbitros = new ArrayList<>();
-/**
-* Registra los participantes en el sistema.
-*/
-public void registrarParticipantes() {
-    // Registrar equipos
-    Equipo equipoA = new Equipo("Los Ganadores");
-    equipoA.agregarJugador(new Delantero("Juan Pérez"));
-    equipoA.agregarJugador(new Portero("Pedro Pan"));
     
-    equipos.add(equipoA);
+    private RegistrarParticipantes registro = new RegistrarParticipantes();
     
-    System.out.println("Equipo 'Los Ganadores' registrado.");
-    Equipo equipoB = new Equipo("Los Retadores");
-    equipoB.agregarJugador(new Defensa("Alicia Smith"));
-
-    equipos.add(equipoB);   
-    System.out.println("Equipo 'Los Retadores' registrado.");
-    // Contratar árbitros
-    arbitros.add(new Arbitro("Miguel Díaz"));
-    System.out.println("Árbitro 'Miguel Díaz' contratado.");
+    public void registrarParticipantes(){
+        registro.registrarEquipos(equipos);
+        registro.registrarArbitro(arbitros);
     }
 /**
 * Calcula las bonificaciones para los jugadores.
-*/
+*/  
 public void calcularBonificaciones() {
     System.out.println("\n--- Calculando Bonificaciones de Jugadores ---");
     for (Equipo equipo : equipos) {
