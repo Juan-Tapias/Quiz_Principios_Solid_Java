@@ -8,6 +8,13 @@ public class GestorCampeonato {
     private List<Arbitro> arbitros = new ArrayList<>();
     
     private RegistrarParticipantes registro = new RegistrarParticipantes();
+    private GeneradorReportes generadorReportes = new GeneradorReportes();
+    
+    public GestorCampeonato() {
+        // Registrar formatos disponibles
+        generadorReportes.registrarFormato("TEXTO", new ReporteTexto());
+        generadorReportes.registrarFormato("HTML", new ReporteHtml());
+    }
     
     public void registrarParticipantes(){
         registro.registrarEquipos(equipos);
@@ -26,38 +33,16 @@ public void calcularBonificaciones() {
 /**
 * Genera y muestra en consola diferentes tipos de reportes.
 */
-public void generarReportes(String formato) {
-    if (formato.equalsIgnoreCase("TEXTO")) {
-        String contenidoReporte = "--- Reporte del Campeonato (TEXTO) ---\n";
-        contenidoReporte += "EQUIPOS:\n";
-        for (Equipo equipo : equipos) {
-            contenidoReporte += "- " + equipo.getNombre() + "\n";
-            }
-            contenidoReporte += "ÁRBITROS:\n";
-        for (Arbitro arbitro : arbitros) {
-            contenidoReporte += "- " + arbitro.getNombre() + "\n";
-            }
-        System.out.println(contenidoReporte);
-    } else if (formato.equalsIgnoreCase("HTML")) {
-        String contenidoHtml = "<html><body>\n";
-        contenidoHtml += " <h1>Reporte del Campeonato</h1>\n";
-        contenidoHtml += " <h2>Equipos</h2>\n <ul>\n";
-        for (Equipo equipo : equipos) {
-            contenidoHtml += " <li>" + equipo.getNombre() + "</li>\n";
-            }
-            contenidoHtml += " </ul>\n <h2>Árbitros</h2>\n <ul>\n";
-        for (Arbitro arbitro : arbitros) {
-            contenidoHtml += " <li>" + arbitro.getNombre() + "</li>\n";
-            }
-        contenidoHtml += " </ul>\n</body></html>";
-        System.out.println(contenidoHtml);
-        }
-}
+    public void generarReportes(String formato) {
+        generadorReportes.generar(formato, equipos, arbitros);
+    }
+    
 // Método principal para simular la ejecución del módulo
 public static void main(String[] args) {
     GestorCampeonato gestor = new GestorCampeonato();
     gestor.registrarParticipantes();
     gestor.calcularBonificaciones();
+    System.out.println("\n--- Generando Reportes ---");
     System.out.println("\n--- Generando Reportes ---");
     gestor.generarReportes("TEXTO");
     System.out.println("\n--- Generando más Reportes ---");
